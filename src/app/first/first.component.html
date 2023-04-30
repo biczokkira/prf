@@ -1,0 +1,22 @@
+<div class="content" role="main" (click)="hello()">
+
+    <!-- Highlight Card -->
+    <div class="card highlight-card card-small">
+  
+      <span>{{ title }} app is running!</span>
+  
+    </div>
+    <div *ngIf="title == 'PRF'">
+      <span>
+        {{'asdasdasdasdasd'}}
+      </span>
+    </div>
+    <ul>
+      <li *ngFor="let x of example" (click)="helloFrom(x)">
+        {{x}}
+      </li>
+    </ul>
+    <input type="text" [(ngModel)]="title"/>
+
+    <button (click)="goToSecond()">second</button>
+  </div>
