@@ -1,13 +1,20 @@
-<div class="content" role="main" (click)="hello()">
+<div class="topnav">
+  <a [routerLink]="['/first']">Main</a>
+  <a [routerLink]="['/second']">Animals</a>
+  <a [routerLink]="['/other']">Other</a>
+  <a [routerLink]="['/login']" style="float:right">Logout</a>
+</div>
+
+<div style="padding: 20px;" role="main" (click)="hello()">
 
     <!-- Highlight Card -->
-    <div class="card highlight-card card-small">
+    <div style="margin-bottom: 20px;" class="getanimals">
   
       <span>Get all the animals: </span>
   
     </div>
 
-    <table class="table table-striped">  
+    <table id="animals">  
       <thead>  
           <tr>  
             <th>Name</th>  
@@ -16,12 +23,9 @@
       </thead>  
       <tbody>  
         <tr *ngFor="let x of json">
-          <td>{{x["name"]}}</td>   
-          <td>{{ x["age"] }}</td>  
+          <td>{{x["name"]}}</td>
+          <td>{{ x["age"] }}</td>
         </tr>  
       </tbody>  
     </table>
-
-    <button (click)="goToSecond()">second</button>
-    <a [routerLink]="['/login']">Logout</a>
   </div>

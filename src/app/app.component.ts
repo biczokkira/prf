@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
+  condition(){
+    if(localStorage.getItem('user')) {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }
