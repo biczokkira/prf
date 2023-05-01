@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const User = mongoose.model('user');
 
 const passport = require('passport');
+const Animal = require('./db/animalSchema');
 
 // #3 Login implementálása
 router.route('/login').post((req, res, next) => {
@@ -73,7 +74,32 @@ async function getUser(req, res, next) {
   next();
 }
 
-// GET /users - összes felhasználó lekérdezése
+// GET / - összes állat lekérdezése
+router.route('/first').get(async (req, res) => {
+  try {
+    const animals = await Animal.find();
+    res.status(200).json(animals);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// POST / - új állat létrehozása
+router.route('/first').post(async (req, res) => {
+  const animal = new Animal({
+    name: req.body.name,
+    age: req.body.age
+  });
+
+  try {
+    const newAnimal = await animal.save();
+    res.status(201).json(newAnimal);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+// GET / - összes felhasználó lekérdezése
 router.get('/', async (req, res) => {
   try {
     const users = await User.find();
@@ -83,19 +109,18 @@ router.get('/', async (req, res) => {
   }
 });
 
-// GET /users/:id - egy felhasználó lekérdezése az id alapján
+// GET /:id - egy felhasználó lekérdezése az id alapján
 router.get('/:id', getUser, (req, res) => { //ez is egy middleware használati módszer, 
   // a getUser middleware ilyenkor le fog futni a kérés feldolgozása előtt 
   res.json(res.user); //egyszerűsített válaszküldés, a megadott objektumot json-re konvertálva küldjük el
 });
 
-// POST /users - új felhasználó létrehozása
-router.post('/', async (req, res) => {
+// POST / - új felhasználó létrehozása
+router.route('/registration').post(async (req, res) => {
   const user = new User({
     username: req.body.username,
     password: req.body.password,
-    accessLevel: req.body.accessLevel,
-    birthdate: req.body.birthdate,
+    accessLevel: req.body.accessLevel
   });
 
   try {
@@ -106,7 +131,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-// PATCH /users/:id - egy felhasználó frissítése az id alapján
+// PATCH /:id - egy felhasználó frissítése az id alapján
 router.patch('/:id', getUser, async (req, res) => {
   if (req.body.username != null) {
     res.user.username = req.body.username;
@@ -116,9 +141,6 @@ router.patch('/:id', getUser, async (req, res) => {
   }
   if (req.body.accessLevel != null) {
     res.user.accessLevel = req.body.accessLevel;
-  }
-  if (req.body.birthdate != null) {
-    res.user.birthdate = req.body.birthdate;
   }
 
   try {
@@ -139,6 +161,4 @@ router.delete('/:id', getUser, async (req, res) => {
   }
 });
 
-/* Ha egy fájl require-el behivatkozza ezt a fájlt, akkor a hivatkozás helyére a module.exports-ban megadott objektum, funkció 
-vagy változó fog bekerülni */
 module.exports = router

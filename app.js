@@ -17,6 +17,7 @@ const expressSession = require('express-session');
 const app = express();
 
 app.use(cors({
+  credentials: true,
   origin: 'http://localhost:4200'
 }));
 
@@ -35,6 +36,7 @@ db.once('open', function () {
 
 // #2 importálom és regisztrálom a sémámat a mongodb 'user' kollekciójához
 const User = require('./db/userSchema');
+const Animal = require('./db/animalSchema');
 
 // #2 a boostrapperről tudom, hogy egy függvényt exportál, itt rögtön a hivatkozás helyén meg is hívom azt
 require('./db/bootstrapper')();
@@ -100,7 +102,7 @@ app.use((req, res, next) => {
     next()
   })
 
-/* Bevonjuk és felcsatoljuk a usersRouter.js által exportált Router objektumot, az abban definiált route-ok a /api/users prefix után lesznek
+/* Bevonjuk és felcsatoljuk a usersRouter.js által exportált Router objektumot, az abban definiált route-ok a /users prefix után lesznek
 elérhetőek, tehát pl. /api/users/:id a teljes út, amin a fájlban definiált /:id elérhető lesz */
 app.use('/', require('./usersRouter'))
 
