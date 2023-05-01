@@ -21,7 +21,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     default: 1, //adhatunk alapértelmezett értéket is
   }
-});
+}, {collection: 'users'});
 
 // #3 A user sémájához egy pre-hookot adunk hozzá, amely a mentés előtt fut le
 userSchema.pre('save', function(next) {

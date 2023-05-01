@@ -74,6 +74,20 @@ async function getUser(req, res, next) {
   next();
 }
 
+async function getAnimal(req, res, next) {
+  try {
+    animal = await Animal.findById(req.params.id);
+    if (animal == null) {
+      return res.status(404).json({ message: 'Az allat nem található' });
+    }
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
+  }
+
+  res.animal = animal; // ettől kezdve a response-ban benne van a db-ből lekért user objektum
+  next();
+}
+
 // GET / - összes állat lekérdezése
 router.route('/first').get(async (req, res) => {
   try {
@@ -84,8 +98,15 @@ router.route('/first').get(async (req, res) => {
   }
 });
 
+// GET /:id - egy állat lekérdezése az id alapján
+router.route('/first/:id').get(getAnimal, (req, res) => { //ez is egy middleware használati módszer, 
+  // a getUser middleware ilyenkor le fog futni a kérés feldolgozása előtt 
+  res.json(res.animal); //egyszerűsített válaszküldés, a megadott objektumot json-re konvertálva küldjük el
+});
+
+
 // POST / - új állat létrehozása
-router.route('/first').post(async (req, res) => {
+router.route('/second').post(async (req, res) => {
   const animal = new Animal({
     name: req.body.name,
     age: req.body.age
@@ -99,8 +120,35 @@ router.route('/first').post(async (req, res) => {
   }
 });
 
+// PATCH /:id - egy állat frissítése az id alapján
+router.route('/second/:id').patch(getAnimal, async (req, res) => {
+  if (req.body.name != null) {
+    res.animal.name = req.body.name;
+  }
+  if (req.body.age != null) {
+    res.animal.age = req.body.age;
+  }
+
+  try {
+    const updatedAnimal = await res.animal.save();
+    res.json(updatedAnimal);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+});
+
+// DELETE /:id - egy állat törlése az id alapján
+router.route('/second/:id').delete(getAnimal, async (req, res) => {
+  try {
+    await res.animal.remove();
+    res.json({ message: 'Az állat sikeresen törölve!' });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // GET / - összes felhasználó lekérdezése
-router.get('/', async (req, res) => {
+router.route('/admin').get( async (req, res) => {
   try {
     const users = await User.find();
     res.status(200).json(users);
