@@ -20,11 +20,7 @@ const userSchema = new mongoose.Schema({
     type: Number,
     required: true,
     default: 1, //adhatunk alapértelmezett értéket is
-  },
-  birthdate: {
-    type: Date,
-    required: true,
-  },
+  }
 });
 
 // #3 A user sémájához egy pre-hookot adunk hozzá, amely a mentés előtt fut le

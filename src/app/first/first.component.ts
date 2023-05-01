@@ -3,6 +3,7 @@ import { ConnectionService } from '../utils/connection.service';
 import { environment } from '../environments/environment';
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-first',
   templateUrl: './first.component.html',
@@ -20,6 +21,9 @@ export class FirstComponent implements OnInit {
 
   title = 'PRF';
 
+  json : any;
+  x = '';
+
   example = ['1_elem'];
 
   goToSecond(){
@@ -27,18 +31,10 @@ export class FirstComponent implements OnInit {
   }
 
   hello(){
-    console.log('Hello World');
-    if(this.title === 'PRF'){
-      this.title = 'NOT PRF';
-    } else {
-      this.title = 'PRF';
-    }
-
-    this.example.push(Math.floor(Math.random()*100) + '_elem');
     this.connectionService.greet().subscribe(data => {
-      console.log('this came from the server: ', data);
-    }, error => {
-      console.log('Sorry we encounetered an error: ', error);
+      this.json = JSON.parse(data);
+      //this.x = this.json[0]["name"];
+      console.log(this.x);
     });
   }
 

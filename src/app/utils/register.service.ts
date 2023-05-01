@@ -5,11 +5,11 @@ import { environment } from '../environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class ConnectionService {
+export class RegisterService {
 
   constructor(private http: HttpClient) { }
 
-  greet() {
-    return this.http.get(environment.serverUrl + 'first', {responseType: 'text', withCredentials: true});
+  registration(username: string, password: string) {
+    return this.http.post(environment.serverUrl + 'registration', {username: username, password: password}, {responseType: 'text'});
   }
 }

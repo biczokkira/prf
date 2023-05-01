@@ -29,6 +29,10 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  registration(){
+    this.router.navigate(['/registration']);
+  }
+
   ngOnInit(): void {
     if(localStorage.getItem('user')){
       localStorage.removeItem('user');
