@@ -4,8 +4,13 @@
   <h1>My Website</h1>
 </div>
 
-<div class="topnav" *ngIf="condition()">
-  <a [routerLink]="['/registration']" style="float:right">Registration</a>
+<div class="topnav">
+  <a [routerLink]="['/first']" *ngIf="!condition()">Main</a>
+  <a [routerLink]="['/second']" *ngIf="!condition()">Animals</a>
+  <a [routerLink]="['/other']" *ngIf="!condition()">Other</a>
+  <a [routerLink]="['/admin']" *ngIf="admincondition()">Admin</a>
+  <a [routerLink]="['/registration']" style="float:right" *ngIf="condition()">Registration</a>
+  <a [routerLink]="['/login']" style="float:right" *ngIf="!condition()">Logout</a>
 </div>
 
 <router-outlet></router-outlet>

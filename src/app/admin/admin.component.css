@@ -41,38 +41,15 @@
     color: black;
   }
 
-  .center {
-    margin: auto;
-    width: 50%;
+  .getusernames {
     padding: 10px;
-  }
-
-  input {
-    padding: 10px;
-    margin-bottom: 10px;
-    box-shadow: 3px 3px 5px grey;
-    height: 20px;
-    font-size: 14px;
-    font-weight: 600;
-    width: 300px;
-  }
-
-  label {
-    color: #333;
-  font-weight: bold;
-  width: 130px;
-  float: left;
-  }
-
-  button {
-    padding: 10px;
-    margin-top: 10px;
+    text-align: center;
     border: 1px solid gray;
     background-color:#333;
     border-radius: 5px;
     font: inherit;
     color: #f2f2f2;    
-    width: 200px;
+    width: 300px;
   }
 
   .center {
@@ -81,6 +58,29 @@
     padding: 10px;
   }
 
+  #usernames {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 70%;
+  }
+  
+  #usernames td, #usernames th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #usernames tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #usernames tr:hover {background-color: #ddd;}
+  
+  #usernames th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #333;
+    color: white;
+  }
+  
   /* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
   @media screen and (max-width: 800px) {
     .leftcolumn, .rightcolumn {   

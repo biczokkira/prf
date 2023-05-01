@@ -14,4 +14,12 @@ export class AppComponent {
       return true;
     }
   }
+
+  admincondition(){
+    if(localStorage.getItem('user') === 'admin') {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }

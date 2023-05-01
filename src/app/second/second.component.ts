@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AnimalsService } from '../utils/animals.service';
 
 @Component({
   selector: 'app-second',
@@ -8,20 +9,25 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class SecondComponent implements OnInit {
 
-  message = '';
+  name: string;
+  age: string;
 
-  constructor(private route: ActivatedRoute){
-
+  constructor(private animalsService: AnimalsService, private router: Router){
+    this.name = '';
+    this.age = '';
   }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      console.log(params.keys);
-      console.log(params.get('message'));
-      this.message = params.get('id') + ' ' + params.get('message');
-    }, error => {
-      console.log('param error', error);
-    })
+  }
+
+  add(){
+    if(this.name != '' && this.age != '') {
+      this.animalsService.add(this.name, this.age).subscribe(msg => {
+        console.log('ez itt a msg');
+      }, error => {
+        console.log(error);
+      })
+    }
   }
 
 }

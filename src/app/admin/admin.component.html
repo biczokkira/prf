@@ -1,0 +1,25 @@
+
+<div style="padding: 20px;" role="main" (click)="usernames()">
+
+    <!-- Highlight Card -->
+    <div style="margin-bottom: 20px;" class="getusernames">
+  
+      <span>Get all the usernames: </span>
+  
+    </div>
+
+    <table id="usernames">  
+      <thead>  
+          <tr>  
+            <th>Username</th>
+            <th>AccessLevel</th>
+          </tr>  
+      </thead>  
+      <tbody>  
+        <tr *ngFor="let x of json">
+          <td>{{x["username"]}}</td>
+          <td>{{x["accessLevel"]}}</td>
+        </tr>  
+      </tbody>  
+    </table>
+  </div>

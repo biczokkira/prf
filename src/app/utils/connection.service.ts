@@ -12,4 +12,8 @@ export class ConnectionService {
   greet() {
     return this.http.get(environment.serverUrl + 'first', {responseType: 'text', withCredentials: true});
   }
+  
+  users() {
+    return this.http.get(environment.serverUrl + 'first', {responseType: 'text', withCredentials: true});
+  }
 }

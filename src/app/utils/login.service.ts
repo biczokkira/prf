@@ -16,4 +16,8 @@ export class LoginService {
   logout(){
     return this.http.post(environment.serverUrl + 'logout', {}, {withCredentials: true, responseType: 'text'});
   }
+  
+  users() {
+    return this.http.get(environment.serverUrl + 'admin', {responseType: 'text', withCredentials: true});
+  }
 }
